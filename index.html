@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sales Tax Calculator</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Sales Tax Calculator</h1>
+        <form id="tax-form" class="bg-light p-4 rounded shadow">
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter amount" required>
+            </div>
+            <div class="form-group">
+                <label for="tax_rate">Tax Rate (%):</label>
+                <input type="number" id="tax_rate" name="tax_rate" class="form-control" placeholder="Enter tax rate" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+        </form>
+
+        <div id="results" class="results mt-4" style="display:none;">
+            <h2>Results:</h2>
+            <p id="sales-tax" class="lead"></p>
+            <p id="total-amount" class="lead"></p>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2023 Sales Tax Calculator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('tax-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const taxRate = parseFloat(document.getElementById('tax_rate').value);
+
+            if (isNaN(amount) || isNaN(taxRate)) {
+                alert("Please enter valid numbers.");
+                return;
+            }
+
+            const salesTax = amount * (taxRate / 100);
+            const totalAmount = amount + salesTax;
+
+            document.getElementById('sales-tax').innerText = `Sales Tax: $${salesTax.toFixed(2)}`;
+            document.getElementById('total-amount').innerText = `Total Amount: $${totalAmount.toFixed(2)}`;
+            document.getElementById('results').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
